@@ -11,8 +11,8 @@ from multi_thread_closing import MultiThreadClosing
 
 class ProgramWrapper(MultiThreadClosing):
 
-    def __init__(self, cmd, logger=None):
-        super(ProgramWrapper, self).__init__(logger)
+    def __init__(self, cmd):
+        super(ProgramWrapper, self).__init__()
         self.cmd = cmd
         self.on_posix = 'posix' in sys.builtin_module_names
         self.child_p = Popen(self.cmd, stdout=PIPE, stderr=PIPE, bufsize=1, close_fds=self.on_posix, shell=True)
@@ -57,4 +57,5 @@ class ProgramWrapper(MultiThreadClosing):
 
 if __name__ == "__main__":
     ac = ProgramWrapper.parseArgs()
+    ac.set_logger()
     ac.start()
